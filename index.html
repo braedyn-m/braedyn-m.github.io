@@ -48,6 +48,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
     .brand {
@@ -88,7 +89,6 @@
     /* Navigation */
 
     .nav-toggle {
-      display: none;
       border-radius: 999px;
       border: 1px solid var(--border-subtle);
       background: rgba(0, 0, 0, 0.35);
@@ -96,7 +96,7 @@
       padding: 0.35rem 0.75rem;
       font-size: 0.9rem;
       cursor: pointer;
-      display: none;
+      display: inline-flex;
       align-items: center;
       gap: 0.45rem;
     }
@@ -153,10 +153,16 @@
     }
 
     nav.nav-links {
-      display: flex;
-      gap: 0.75rem;
+      display: none;            /* hidden by default */
+      width: 100%;
+      margin-top: 0.85rem;
       flex-wrap: wrap;
+      gap: 0.5rem;
       font-size: 0.9rem;
+    }
+
+    nav.nav-links.open {
+      display: flex;            /* shown only when .open is toggled */
     }
 
     nav.nav-links a {
@@ -391,37 +397,9 @@
       text-decoration: underline;
     }
 
-    /* Responsive navigation */
-
     @media (max-width: 840px) {
       header {
         padding-top: 1.75rem;
-      }
-
-      .top-bar {
-        align-items: flex-start;
-      }
-
-      .nav-toggle {
-        display: inline-flex;
-      }
-
-      nav.nav-links {
-        display: none;
-        width: 100%;
-        margin-top: 0.85rem;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-
-      nav.nav-links.open {
-        display: flex;
-      }
-
-      nav.nav-links a {
-        padding: 0.35rem 0.7rem;
-        font-size: 0.85rem;
       }
 
       .section-grid,
