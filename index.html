@@ -85,14 +85,81 @@
       color: var(--text-muted);
     }
 
-    nav {
+    /* Navigation */
+
+    .nav-toggle {
+      display: none;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(0, 0, 0, 0.35);
+      color: var(--text-main);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .nav-toggle span {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .nav-toggle-icon {
+      width: 16px;
+      height: 12px;
+      position: relative;
+    }
+
+    .nav-toggle-icon::before,
+    .nav-toggle-icon::after,
+    .nav-toggle-icon div {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--text-main);
+      border-radius: 999px;
+      transition: transform 0.2s ease, opacity 0.2s ease, top 0.2s ease, bottom 0.2s ease;
+    }
+
+    .nav-toggle-icon::before {
+      top: 0;
+    }
+
+    .nav-toggle-icon::after {
+      bottom: 0;
+    }
+
+    .nav-toggle-icon div {
+      top: 5px;
+    }
+
+    .nav-toggle.active .nav-toggle-icon::before {
+      top: 5px;
+      transform: rotate(45deg);
+    }
+
+    .nav-toggle.active .nav-toggle-icon::after {
+      bottom: 5px;
+      transform: rotate(-45deg);
+    }
+
+    .nav-toggle.active .nav-toggle-icon div {
+      opacity: 0;
+    }
+
+    nav.nav-links {
       display: flex;
       gap: 0.75rem;
       flex-wrap: wrap;
       font-size: 0.9rem;
     }
 
-    nav a {
+    nav.nav-links a {
       text-decoration: none;
       color: var(--text-muted);
       padding: 0.4rem 0.75rem;
@@ -102,16 +169,18 @@
       transition: all 0.2s ease;
     }
 
-    nav a:hover {
+    nav.nav-links a:hover {
       color: var(--text-main);
       border-color: var(--accent-soft);
       background: rgba(150, 214, 107, 0.06);
     }
 
+    /* Hero */
+
     .hero {
       margin-top: 1.75rem;
       display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.6fr);
+      grid-template-columns: minmax(0, 1fr);
       gap: 2rem;
       align-items: center;
     }
@@ -157,41 +226,6 @@
       border-radius: 999px;
       border: 1px solid var(--border-subtle);
       background: rgba(0, 0, 0, 0.35);
-    }
-
-    .hero-card {
-      background: radial-gradient(circle at top left, rgba(150, 214, 107, 0.14), #08120a);
-      border-radius: 1.5rem;
-      padding: 1.25rem 1.25rem 1.4rem;
-      border: 1px solid var(--border-subtle);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.75);
-    }
-
-    .hero-card h2 {
-      margin: 0 0 0.75rem;
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .hero-card p {
-      margin: 0 0 1rem;
-      font-size: 0.9rem;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      font-size: 0.8rem;
-    }
-
-    .hero-tags span {
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(4, 9, 7, 0.5);
-      border: 1px solid var(--accent-soft);
     }
 
     main {
@@ -357,16 +391,39 @@
       text-decoration: underline;
     }
 
+    /* Responsive navigation */
+
     @media (max-width: 840px) {
       header {
         padding-top: 1.75rem;
       }
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
+
+      .top-bar {
+        align-items: flex-start;
       }
-      .hero-card {
-        order: -1;
+
+      .nav-toggle {
+        display: inline-flex;
       }
+
+      nav.nav-links {
+        display: none;
+        width: 100%;
+        margin-top: 0.85rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      nav.nav-links.open {
+        display: flex;
+      }
+
+      nav.nav-links a {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.85rem;
+      }
+
       .section-grid,
       .two-col {
         grid-template-columns: minmax(0, 1fr);
@@ -385,8 +442,16 @@
             <p>Maker Lab I · UX201-BR2 · Portfolio Case Study</p>
           </div>
         </div>
-        <nav>
-          <a href="#about">About</a>
+
+        <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span>Menu</span>
+          <div class="nav-toggle-icon">
+            <div></div>
+          </div>
+        </button>
+
+        <nav class="nav-links">
+          <a href="#overview">About</a>
           <a href="#overview">Project Overview</a>
           <a href="#problem">Design Problem</a>
           <a href="#process">Design Process</a>
@@ -416,22 +481,6 @@
             <span>Course: UX201-BR2 – Maker Lab I</span>
           </div>
         </div>
-
-        <aside class="hero-card">
-          <h2>About Braedyn</h2>
-          <p>
-            I am a User Experience Design student interested in accessible, sustainable
-            products and “critical making” as a way to think through social issues. The
-            Mini Sprout Box projects gave me space to experiment with materials, iterate
-            in a team, and translate theory into practice through hands-on making.
-          </p>
-          <div class="hero-tags">
-            <span>Accessibility</span>
-            <span>Critical Making</span>
-            <span>Arduino</span>
-            <span>Gardening &amp; Food Systems</span>
-          </div>
-        </aside>
       </div>
     </div>
   </header>
@@ -668,7 +717,6 @@
 
         <div class="gallery-grid">
           <figure>
-            <!-- Replace this src with a photo from the GMP1 slides (e.g., top view of prototype) -->
             <img src="images/gmp1-top-view.jpg" alt="Top view of the original Mini Sprout Box prototype with egg carton planter and water bottle." />
             <figcaption>
               GMP1 Mini Sprout Box – top view showing the egg carton planter, felt layers,
@@ -677,7 +725,6 @@
           </figure>
 
           <figure>
-            <!-- Replace this src with a front/side photo from the GMP1 slides -->
             <img src="images/gmp1-front-view.jpg" alt="Front view of the Mini Sprout Box with layered cardboard and egg cartons." />
             <figcaption>
               GMP1 final prototype – nested box structure built from recycled cardboard,
@@ -686,7 +733,6 @@
           </figure>
 
           <figure>
-            <!-- Replace this src with an Arduino photo from GMP2 slides -->
             <img src="images/gmp2-arduino-led.jpg" alt="Arduino board with LEDs and wiring used to prototype visual watering cues." />
             <figcaption>
               Arduino exploration for GMP2 – prototyping LED and buzzer cues to signal
@@ -695,7 +741,6 @@
           </figure>
 
           <figure>
-            <!-- Replace this src with the 'three photographs of prototype' slide from GMP2 -->
             <img src="images/gmp2-mini-sprout-box.jpg" alt="Updated Mini Sprout Box with painted exterior and QR code on the side." />
             <figcaption>
               GMP2 Mini Sprout Box – updated exterior design with QR code, drip tray
@@ -704,7 +749,6 @@
           </figure>
 
           <figure>
-            <!-- Replace this src with the website mockup slide -->
             <img src="images/gmp2-website-mockup.jpg" alt="Figma mockup of the Mini Sprout Box community website showing recipe cards and tips." />
             <figcaption>
               Website mockup concept – a community space for recipes, gardening tips,
@@ -713,7 +757,6 @@
           </figure>
 
           <figure>
-            <!-- Optional team / materials photo -->
             <img src="images/gmp1-materials.jpg" alt="Table with cardboard boxes, egg cartons, felt, and tools laid out before prototyping." />
             <figcaption>
               Early materials spread – planning an eco-friendly prototype with
@@ -781,12 +824,25 @@
   <footer>
     <div class="shell">
       <div>
-        &copy; <!-- Update year if needed -->2025 · Braedyn Murray · Mini Sprout Box – Maker Lab I
+        &copy; 2025 · Braedyn Murray · Mini Sprout Box – Maker Lab I
       </div>
       <div>
         Contact: <a href="mailto:youremail@example.com">youremail@example.com</a>
       </div>
     </div>
   </footer>
+
+  <script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        navToggle.classList.toggle('active', isOpen);
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    }
+  </script>
 </body>
 </html>
