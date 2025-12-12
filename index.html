@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mini Sprout Box – Maker Lab I Portfolio | Braedyn Murray</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f1f16;
+      --bg-alt: #182820;
+      --card: #1f3327;
+      --accent: #96d66b;
+      --accent-soft: rgba(150, 214, 107, 0.12);
+      --text-main: #f9f7f0;
+      --text-muted: #c6d2c4;
+      --border-subtle: rgba(255,255,255,0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #1a3124 0, #050806 45%, #030404 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 3.5rem 1.5rem 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(3, 7, 5, 0.92), rgba(3, 7, 5, 0.85));
+    }
+
+    .shell {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--accent-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: radial-gradient(circle at 30% 0%, #96d66b 0, #2e533f 50%, #071009 100%);
+      color: #051005;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6), 0 18px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .brand-text h1 {
+      font-size: 1.2rem;
+      margin: 0;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .brand-text p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-muted);
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      transition: all 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+      border-color: var(--accent-soft);
+      background: rgba(150, 214, 107, 0.06);
+    }
+
+    .hero {
+      margin-top: 1.75rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.6fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3.1vw, 2.7rem);
+      margin: 0 0 0.75rem;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.1rem 0.7rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(150, 214, 107, 0.4);
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-pill span {
+      font-size: 0.9rem;
+    }
+
+    .hero-lede {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      max-width: 32rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta span {
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, rgba(150, 214, 107, 0.14), #08120a);
+      border-radius: 1.5rem;
+      padding: 1.25rem 1.25rem 1.4rem;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.75);
+    }
+
+    .hero-card h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .hero-card p {
+      margin: 0 0 1rem;
+      font-size: 0.9rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+    }
+
+    .hero-tags span {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(4, 9, 7, 0.5);
+      border: 1px solid var(--accent-soft);
+    }
+
+    main {
+      padding: 2.5rem 1.5rem 3.5rem;
+    }
+
+    section {
+      margin-bottom: 2rem;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.9fr) minmax(0, 1.45fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    h2.section-title {
+      font-size: 1.35rem;
+      margin: 0 0 0.75rem;
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .card {
+      background: var(--bg-alt);
+      border-radius: 1.25rem;
+      padding: 1.25rem 1.25rem 1.3rem;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.7);
+    }
+
+    .card + .card {
+      margin-top: 1rem;
+    }
+
+    .card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin: 0 0 0.5rem;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .muted {
+      color: var(--text-muted);
+    }
+
+    .q-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .q-list li + li {
+      margin-top: 0.6rem;
+    }
+
+    .q-label {
+      display: block;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .pill-row span {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+    }
+
+    figure {
+      margin: 0;
+      background: var(--bg-alt);
+      border-radius: 1rem;
+      padding: 0.5rem;
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 0.8rem;
+    }
+
+    figure figcaption {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0.45rem 0.4rem 0.6rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.4fr);
+      gap: 1.5rem;
+    }
+
+    .ref-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .ref-list li + li {
+      margin-top: 0.4rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 1.75rem 1.5rem 2.25rem;
+      background: #050806;
+    }
+
+    footer .shell {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 840px) {
+      header {
+        padding-top: 1.75rem;
+      }
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-card {
+        order: -1;
+      }
+      .section-grid,
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="shell">
+      <div class="top-bar">
+        <div class="brand">
+          <div class="brand-mark">B</div>
+          <div class="brand-text">
+            <h1>Mini Sprout Box</h1>
+            <p>Maker Lab I · UX201-BR2 · Portfolio Case Study</p>
+          </div>
+        </div>
+        <nav>
+          <a href="#about">About</a>
+          <a href="#overview">Project Overview</a>
+          <a href="#problem">Design Problem</a>
+          <a href="#process">Design Process</a>
+          <a href="#learning">Reflection</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#references">References</a>
+        </nav>
+      </div>
+
+      <div class="hero">
+        <div>
+          <div class="hero-pill">
+            <span>GMP1 &amp; GMP2</span>
+            ·
+            <span>Case Study</span>
+          </div>
+          <h2 class="hero-title">Designing an Accessible, Eco-Friendly Mini Sprout Box</h2>
+          <p class="hero-lede">
+            As a Maker Lab I team, we co-created the Mini Sprout Box: a portable,
+            partially biodegradable planter that “hacks” the traditional box into a
+            low-maintenance gardening tool. In GMP2, we iterated on that idea with
+            Arduino-powered audio and visual cues and a community-focused website concept.
+          </p>
+          <div class="hero-meta">
+            <span>Role: Co-designer · Prototype builder · Presenter</span>
+            <span>Team: Group 5</span>
+            <span>Course: UX201-BR2 – Maker Lab I</span>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <h2>About Braedyn</h2>
+          <p>
+            I am a User Experience Design student interested in accessible, sustainable
+            products and “critical making” as a way to think through social issues. The
+            Mini Sprout Box projects gave me space to experiment with materials, iterate
+            in a team, and translate theory into practice through hands-on making.
+          </p>
+          <div class="hero-tags">
+            <span>Accessibility</span>
+            <span>Critical Making</span>
+            <span>Arduino</span>
+            <span>Gardening &amp; Food Systems</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- OVERVIEW + PROBLEM -->
+    <section id="overview">
+      <div class="section-inner section-grid">
+        <div>
+          <div class="eyebrow">Summary of Maker Projects</div>
+          <h2 class="section-title">GMP1 &amp; GMP2 – Mini Sprout Box</h2>
+          <div class="card">
+            <p>
+              Across Group Maker Project 1 (GMP1) and Group Maker Project 2 (GMP2), our
+              team designed, built, and iteratively improved the Mini Sprout Box: a
+              compact gardening box that supports herbs and microgreens indoors. In GMP1
+              we focused on sustainability, portability, and a self-watering system made
+              from recycled materials. In GMP2 we refined the physical design and added
+              Arduino-based audio and visual cues, a QR-linked website concept, and
+              accessibility features so that more people — including users with visual or
+              hearing impairments — could confidently grow their own food.
+            </p>
+          </div>
+        </div>
+
+        <div id="problem">
+          <div class="eyebrow">Design Problem</div>
+          <h2 class="section-title">Re-imagining a Box as a Gardening Tool</h2>
+          <div class="card">
+            <p>
+              Traditional boxes are usually single-use containers that simply store and
+              move objects. Our design question was: <em>How might we hack a box into an
+              eco-friendly, accessible gardening tool that supports sustainable food
+              practices?</em> We wanted to help people who lack outdoor garden space or
+              experience, and support older adults or users with chronic back pain who
+              may find traditional gardening physically demanding. The Mini Sprout Box
+              responds by combining compact form, biodegradable materials, self-watering
+              features, and simple maintenance cues into a socially responsible design.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESIGN PROCESS & QUESTIONS -->
+    <section id="process">
+      <div class="section-inner">
+        <div class="eyebrow">Review of the Design Process</div>
+        <h2 class="section-title">From Concept to Iteration: How We Designed the Mini Sprout Box</h2>
+
+        <div class="two-col">
+          <div>
+            <div class="card">
+              <h3>1. Research, Inspiration &amp; Planning</h3>
+              <p>
+                We began by exploring social and environmental issues connected to food,
+                waste, and everyday objects. As a group we were inspired by the United
+                Nations’ Sustainable Development Goals 2 (Zero Hunger) and 12
+                (Responsible Consumption and Production), and by readings on making,
+                creativity, and socially responsible design. We defined our target users
+                as people interested in growing herbs at home, including older adults and
+                users with limited mobility or limited access to outdoor space.
+              </p>
+              <p>
+                At this stage we drafted a group charter, clarified roles, and outlined
+                objectives for both projects: ideation, material collection, prototype
+                building, documentation, and reflection.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>2. Brainstorming &amp; Hacking the Box (GMP1)</h3>
+              <p>
+                During GMP1 we treated “the box” as something to be hacked rather than a
+                neutral container. We sketched multiple layouts, experimented with
+                cardboard and egg cartons, and discussed how to integrate a drip-style
+                self-watering system. Reusability and ease of replication were important:
+                we wanted users to rebuild the inner biodegradable planter from accessible
+                materials such as molded pulp, twine, and recycled bottles while keeping
+                the outer box reusable.
+              </p>
+              <p>
+                One key challenge was friction between the inner and outer boxes, which
+                made the planter hard to slide. We widened the dimensions and adjusted
+                the layers inside to reduce resistance while maintaining structural
+                support.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>3. Building, Testing &amp; Documenting the Prototype</h3>
+              <p>
+                As a group we cut down recycled cardboard, layered egg cartons and felt to
+                protect against water damage, and assembled a nested planter with a
+                self-watering bottle. We documented each step with photos and sketches,
+                creating a visual archive of materials, intermediate prototypes, and final
+                views (top, front, side) that supported our “show and tell” presentation.
+              </p>
+              <p>
+                Audience feedback highlighted the strengths of our eco-friendly approach
+                and suggested ways we might extend the concept, including digital
+                features and community-building tools.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <div class="card">
+              <h3>4. Iterating with Technology &amp; Accessibility (GMP2)</h3>
+              <p>
+                In GMP2 we reframed the project as an opportunity to make the Mini Sprout
+                Box more inclusive. We identified three major areas for improvement:
+                accessibility (audio/visual cues, Braille), connectivity (a website for
+                recipes, tips, and sharing plant progress), and longevity (better
+                circulation and drip-tray support to reduce odor and water damage).
+              </p>
+              <p>
+                Using an Arduino and components from an electronics kit, we prototyped a
+                system of LEDs and a passive buzzer that could signal when the water
+                reservoir needed refilling. We also designed a new side compartment,
+                experimented with cosmetic upgrades, and created a Figma mockup of a
+                Mini Sprout Box website that would extend the project into a digital
+                community.
+              </p>
+            </div>
+
+            <div class="card">
+              <h3>5. Reflection, Critical Making &amp; Future Directions</h3>
+              <p>
+                Reflecting on both projects, we connected our hands-on work to
+                “critical making”: using prototypes to think through social issues rather
+                than just to produce finished products. Iterating from GMP1 to GMP2
+                required us to critique our own design, prioritize feasible improvements,
+                and negotiate trade-offs in time, materials, and complexity.
+              </p>
+              <p>
+                Going forward, we see potential to complete the website, explore DIY kit
+                versions of the box, and further refine the Arduino integration so that it
+                can run independently of a computer while remaining affordable and easy
+                to assemble.
+              </p>
+            </div>
+
+            <div class="card" id="learning">
+              <h3>Guiding Questions &amp; What I Learned</h3>
+              <ul class="q-list">
+                <li>
+                  <span class="q-label">What did we accomplish?</span>
+                  We transformed a recycled box into a portable planter with a working
+                  self-watering system, then evolved it into a more accessible, sensor-
+                  informed design concept supported by a community website idea.
+                </li>
+                <li>
+                  <span class="q-label">What challenges did we encounter?</span>
+                  Material constraints, friction between nested boxes, limited time for
+                  coding and mounting Arduino components, and deciding how far to push
+                  the visual redesign within an eco-friendly framework.
+                </li>
+                <li>
+                  <span class="q-label">How did we respond to these challenges?</span>
+                  We adjusted dimensions, simplified some ideas, iterated on the visual
+                  design, and focused our technical efforts on a clear accessibility
+                  story rather than trying to add every feature at once.
+                </li>
+                <li>
+                  <span class="q-label">What worked well in the process?</span>
+                  Collaborative ideation, shared documentation, clear objectives, and a
+                  strong link between course readings and design decisions helped us stay
+                  aligned as a team.
+                </li>
+                <li>
+                  <span class="q-label">What did not work as well?</span>
+                  Our timeline limited the depth of website development and meant that
+                  some ideas (like a fully independent Arduino-powered system) remained
+                  at the proof-of-concept stage.
+                </li>
+                <li>
+                  <span class="q-label">What did I learn as a UX designer?</span>
+                  I learned how critical making can bridge theory and practice, how
+                  important accessibility is from the very first sketches, and how group
+                  decision-making shapes the final experience.
+                </li>
+                <li>
+                  <span class="q-label">How does the process support my evolution in UX?</span>
+                  These projects strengthened my skills in storytelling, prototyping,
+                  and reflective evaluation. They showed me that UX design is not only
+                  about screens but also about tangible objects, materials, and the
+                  communities that form around them.
+                </li>
+              </ul>
+              <div class="pill-row">
+                <span>Hands-on making</span>
+                <span>Inclusive design</span>
+                <span>Iterative improvement</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section id="evaluation" style="margin-top: 2rem;">
+          <div class="card">
+            <h3>Concluding Evaluation of the Final Design</h3>
+            <p class="muted">
+              Overall, the Mini Sprout Box successfully reimagines a simple cardboard box
+              as an accessible, low-maintenance gardening tool. The combination of
+              recycled materials, self-watering features, and a compact footprint makes
+              it especially suited to users with limited space or mobility. Our GMP2
+              enhancements — audio and visual cues, Braille, improved circulation, and a
+              community-oriented website concept — strengthened the project’s alignment
+              with sustainability and inclusivity.
+            </p>
+            <p class="muted">
+              At the same time, the project surfaced important next steps: completing
+              the digital platform, refining the electronics into a fully standalone
+              module, and deciding whether the product should be sold as a ready-made
+              box, a DIY kit, or both. These open questions remind me that UX design is
+              an ongoing process of learning with users, not a single finished object.
+            </p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery">
+      <div class="section-inner">
+        <div class="eyebrow">Images &amp; Artefacts</div>
+        <h2 class="section-title">Gallery – Group Work &amp; Prototypes</h2>
+        <p class="muted" style="margin-bottom: 1rem;">
+          The following images document key moments in our process, from early GMP1
+          materials to the GMP2 prototype, Arduino tests, and the website mockup.
+          Replace the <code>src</code> paths with your exported images from the slide decks.
+        </p>
+
+        <div class="gallery-grid">
+          <figure>
+            <!-- Replace this src with a photo from the GMP1 slides (e.g., top view of prototype) -->
+            <img src="images/gmp1-top-view.jpg" alt="Top view of the original Mini Sprout Box prototype with egg carton planter and water bottle." />
+            <figcaption>
+              GMP1 Mini Sprout Box – top view showing the egg carton planter, felt layers,
+              and self-watering bottle.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <!-- Replace this src with a front/side photo from the GMP1 slides -->
+            <img src="images/gmp1-front-view.jpg" alt="Front view of the Mini Sprout Box with layered cardboard and egg cartons." />
+            <figcaption>
+              GMP1 final prototype – nested box structure built from recycled cardboard,
+              molded pulp, and twine.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <!-- Replace this src with an Arduino photo from GMP2 slides -->
+            <img src="images/gmp2-arduino-led.jpg" alt="Arduino board with LEDs and wiring used to prototype visual watering cues." />
+            <figcaption>
+              Arduino exploration for GMP2 – prototyping LED and buzzer cues to signal
+              when the water reservoir is empty.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <!-- Replace this src with the 'three photographs of prototype' slide from GMP2 -->
+            <img src="images/gmp2-mini-sprout-box.jpg" alt="Updated Mini Sprout Box with painted exterior and QR code on the side." />
+            <figcaption>
+              GMP2 Mini Sprout Box – updated exterior design with QR code, drip tray
+              support, and improved accessibility features.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <!-- Replace this src with the website mockup slide -->
+            <img src="images/gmp2-website-mockup.jpg" alt="Figma mockup of the Mini Sprout Box community website showing recipe cards and tips." />
+            <figcaption>
+              Website mockup concept – a community space for recipes, gardening tips,
+              and sharing Mini Sprout Box progress photos.
+            </figcaption>
+          </figure>
+
+          <figure>
+            <!-- Optional team / materials photo -->
+            <img src="images/gmp1-materials.jpg" alt="Table with cardboard boxes, egg cartons, felt, and tools laid out before prototyping." />
+            <figcaption>
+              Early materials spread – planning an eco-friendly prototype with
+              biodegradable and recyclable components.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFERENCES -->
+    <section id="references">
+      <div class="section-inner">
+        <div class="eyebrow">References &amp; Course Connections</div>
+        <h2 class="section-title">Readings, Concepts &amp; External Sources</h2>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Critical Making &amp; Design Theory</h3>
+            <ul class="ref-list">
+              <li>
+                Ingold, Tim. “The Textility of Making.”
+              </li>
+              <li>
+                McGlashan, Ann. “A Pedagogic Approach to Enhance Creative Ideation in Classroom
+                Practice.” <em>International Journal of Technology and Design Education</em>.
+              </li>
+              <li>
+                Wark, McKenzie. “A More Lovingly Made World.” <em>Cultural Studies Review</em>,
+                vol. 19, no. 1, 2013, pp. 297–301.
+              </li>
+            </ul>
+            <p class="muted" style="margin-top: 0.7rem;">
+              These texts guided our understanding of making as an active, reflective, and
+              collaborative process. They helped us frame the Mini Sprout Box not just as
+              a product, but as a way of thinking with materials, users, and social issues.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Context &amp; Additional Resources</h3>
+            <ul class="ref-list">
+              <li>
+                United Nations. “Sustainable Development Goal 2: Zero Hunger” and “Goal 12:
+                Responsible Consumption and Production.”
+              </li>
+              <li>
+                Figma prototype: Mini Sprout Box community website (recipes, tips, DIY guide).
+              </li>
+              <li>
+                Arduino &amp; Elegoo kit documentation (LEDs, buzzers, and sensors used for
+                proof-of-concept alerts).
+              </li>
+            </ul>
+            <p class="muted" style="margin-top: 0.7rem;">
+              Full MLA-style citations, including any generative AI used to support this
+              portfolio, can be added here in accordance with the course guidelines.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <div>
+        &copy; <!-- Update year if needed -->2025 · Braedyn Murray · Mini Sprout Box – Maker Lab I
+      </div>
+      <div>
+        Contact: <a href="mailto:youremail@example.com">youremail@example.com</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
